@@ -30,6 +30,15 @@ class UsersController extends Controller
         return Inertia::render('users/create');
     }
 
+    // Show the form for editing a user
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return Inertia::render('users/edit', [
+            'user' => $user
+        ]);
+    }
+
     // Store a new user
     // Store a new user
 public function store(Request $request)
@@ -49,7 +58,7 @@ public function store(Request $request)
     ]);
 
     // Redirect kembali ke halaman users dengan flash message
-    return redirect()->route('user.index')->with('success', 'User created successfully!');
+    return redirect()->route('users.index')->with('success', 'User created successfully!');
 }
 
 
