@@ -40,16 +40,16 @@ const showingNavigationDropdown = ref(false);
                                     Dashboard
                                 </NavLink>
                                  <NavLink
-                                    :href="route('user.index')"
-                                    :active="route().current('user.index')"
+                                    :href="route('users.index')"
+                                    :active="route().current('users.index')"
                                 >
                                     User
                                 </NavLink>
                                  <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
+                                    :href="route('tindakan.index')"
+                                    :active="route().current('tindakan.index')"
                                 >
-                                    RS
+                                   Tindakan Medis 
                                 </NavLink>
                                
                             </div>

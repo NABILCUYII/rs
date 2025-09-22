@@ -86,7 +86,7 @@ public function store(Request $request)
     $user = User::findOrFail($id);
     $user->delete();
 
-    return redirect()->route('user.index')->with('success', 'User deleted successfully!');
+    return redirect()->route('users.index')->with('success', 'User deleted successfully!');
 }
 
 }
