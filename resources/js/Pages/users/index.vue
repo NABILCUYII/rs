@@ -45,6 +45,10 @@ function deleteUser(id: number) {
   })
 }
 
+function editUser(id: number) {
+    router.visit(`/users/${id}/edit`)
+}
+
 
 </script>
 
@@ -81,13 +85,22 @@ function deleteUser(id: number) {
                             <td class="px-4 py-2 border">{{ user.id }}</td>
                             <td class="px-4 py-2 border">{{ user.name }}</td>
                             <td class="px-4 py-2 border">{{ user.email }}</td>
-                            <td class="px-4 py-2 border">
+                            <td class="px-4 py-2 border text-center">
                                 <button
-                                    class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                                    class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                                    @click="editUser(user.id)"
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                    class=" ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
                                     @click="deleteUser(user.id)"
                                 >
                                     Delete
                                 </button>
+                            
+                            
+                                 
                             </td>
                         </tr>
                     </tbody>

@@ -11,8 +11,13 @@ const form = ref({
   name: user.name || '',
   email: user.email || '',
   password: '' // kosong, diisi kalau mau update password
-})
+    , password_confirmation: ''
 
+})
+const errors = ref<any>({})
+const showPopup = ref(false)
+const popupMessage = ref("")
+const popupType = ref("success") // success | error
 // State modal konfirmasi
 const showConfirm = ref(false)
 
@@ -27,12 +32,22 @@ function closeConfirmModal() {
 function confirmUpdate() {
   router.put(`/users/${user.id}`, form.value, {
     onSuccess: () => {
-      alert("User berhasil diperbarui!")
-      router.visit('/users')
+      popupMessage.value = "User berhasil diperbarui!"
+      popupType.value = "success"
+      showPopup.value = true
+      setTimeout(() => {
+        showPopup.value = false
+        router.visit('/users') // redirect setelah popup hilang
+      }, 2000) // popup hilang otomatis setelah 2 detik
     },
     onError: (errors) => {
+      popupMessage.value = "Gagal memperbarui user!"
+      popupType.value = "error"
+      showPopup.value = true
       console.error(errors)
-      alert("Gagal memperbarui user!")
+      setTimeout(() => {
+        showPopup.value = false
+      }, 3000)
     }
   })
   closeConfirmModal()
@@ -61,12 +76,18 @@ function confirmUpdate() {
                  class="mt-1 block w-full border rounded-lg px-3 py-2 shadow-sm focus:ring-blue-500 focus:border-blue-500"/>
         </div>
 
-        <!-- Password -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Password (kosongkan jika tidak diganti)</label>
-          <input v-model="form.password" type="password"
-                 class="mt-1 block w-full border rounded-lg px-3 py-2 shadow-sm focus:ring-blue-500 focus:border-blue-500"/>
-        </div>
+      <div>
+  <label>Password (Kosongkan jika tidak ingin ubah)</label>
+  <input type="password" v-model="form.password" class="border rounded px-3 py-2 w-full" />
+ 
+</div>
+
+<div>
+  <label>Confirm Password</label>
+  <input type="password" v-model="form.password_confirmation" class="border rounded px-3 py-2 w-full" />
+  
+</div>
+
 
         <div class="flex justify-end">
           <button type="submit"

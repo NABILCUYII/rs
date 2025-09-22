@@ -53,32 +53,34 @@ public function store(Request $request)
 }
 
 
-
-    // Update an existing user
-    public function update(Request $request, $id)
+public function edit($id)
     {
         $user = User::findOrFail($id);
-
-        $validated = $request->validate([
-            'name' => 'sometimes|required|string|max:255',
-            'email' => 'sometimes|required|email|unique:users,email,' . $id,
-            'password' => 'sometimes|required|string|min:6',
+        return Inertia::render('users/edit', [
+            'user' => $user
         ]);
-
-        if (isset($validated['name'])) {
-            $user->name = $validated['name'];
-        }
-        if (isset($validated['email'])) {
-            $user->email = $validated['email'];
-        }
-        if (isset($validated['password'])) {
-            $user->password = bcrypt($validated['password']);
-        }
-
-        $user->save();
-
-        return response()->json($user);
     }
+    // Update an existing user
+    public function update(Request $request, User $user)
+{
+    $validated = $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+        'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+
+    ]);
+
+    if (!empty($validated['password'])) {
+        $validated['password'] = Hash::make($validated['password']);
+    } else {
+        unset($validated['password']); // ✅ jangan update password kalau kosong
+    }
+
+    $user->update($validated);
+
+    return redirect()->route('users.index')->with('success', 'User updated successfully.');
+}
+
 
     // Delete a user
  public function destroy($id)

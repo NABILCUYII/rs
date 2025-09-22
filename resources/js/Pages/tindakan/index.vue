@@ -102,10 +102,9 @@ function editTindakan(id: number) {
                 edit
               </button>
              
-            </td>
-            <td>
+           
                  <button
-                class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                class="ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
                 @click="deleteTindakan(record.id)"
               >
                 Delete
