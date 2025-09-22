@@ -55,6 +55,15 @@ public function create()
         return response()->json($tindakan);
     }
 
+
+
+public function edit($id)
+    {
+        $tindakan = Tindakan::findOrFail($id);
+        return Inertia::render('tindakan/edit', [
+            'tindakan' => $tindakan
+        ]);
+    }
     // Update data
     public function update(Request $request, $id)
     {
@@ -69,10 +78,7 @@ public function create()
 
         $tindakan->update($validated);
 
-        return response()->json([
-            'message' => 'Data tindakan berhasil diperbarui',
-            'data' => $tindakan
-        ]);
+       return redirect()->route('tindakan.index')->with('success', 'pasien update successfully!');
     }
 
     // Hapus data
@@ -81,6 +87,6 @@ public function create()
         $tindakan = Tindakan::findOrFail($id);
         $tindakan->delete();
 
-       return redirect()->route('tindakan.index')->with('success', 'User deleted successfully!');
+       return redirect()->route('tindakan.index')->with('success', 'pasien deleted successfully!');
     }
 }

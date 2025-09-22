@@ -50,6 +50,10 @@ function deleteTindakan(id: number) {
     }
   })
 }
+
+function editTindakan(id: number) {
+    router.visit(`/tindakan/${id}/edit`)
+}
 </script>
 
 <template>
@@ -91,7 +95,16 @@ function deleteTindakan(id: number) {
             <td class="px-4 py-2 border text-center">{{ record.jumlah }}</td>
             <td class="px-4 py-2 border text-center">
               <!-- Tombol Aksi (Edit, Delete, dll) bisa ditambahkan di sini -->
-              <button
+                <button
+                class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                @click="editTindakan(record.id)"
+              >
+                edit
+              </button>
+             
+            </td>
+            <td>
+                 <button
                 class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
                 @click="deleteTindakan(record.id)"
               >

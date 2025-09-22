@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     //tindakan management
     Route::get('/tindakan', [TindakanController::class, 'index'])->name('tindakan.index');
     Route::get('/tindakan/create', [TindakanController::class, 'create'])->name('tindakan.create');
+    Route::get('/tindakan/{id}/edit', [TindakanController::class, 'edit'])->name('tindakan.edit');
     Route::get('/tindakan/{user}', [TindakanController::class, 'show'])->name('tindakan.show');
     Route::post('/tindakan', [TindakanController::class, 'store'])->name('tindakan.store');
     Route::put('/tindakan/{user}', [TindakanController::class, 'update'])->name('tindakan.update');
